@@ -10,6 +10,7 @@ function LogoutBtn() {
     const handleLogout = async () => {
         try {
             await logout().unwrap();
+            dispatch(baseApi.util.resetApiState());
             navigate("/login");
         } catch (error) {
             console.log("Logout failed:", error);
