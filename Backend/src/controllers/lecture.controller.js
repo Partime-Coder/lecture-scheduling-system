@@ -1,6 +1,8 @@
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { apiError } from '../utils/apiError.js'
 import { apiResponse } from '../utils/apiResponse.js'
+import { User } from '../models/users.model.js';
+import { Course } from '../models/courses.model.js';
 import { Lecture } from '../models/lectures.model.js';
 
 const createLecture = asyncHandler(async (req, res) => {
@@ -77,7 +79,7 @@ const getAllLectures = asyncHandler(async (req, res) => {
 });
 
 const getMyLectures = asyncHandler(async (req, res) => {
-    const { userId } = req.user;
+    const { _id: userId } = req.user;
     const lectures = await Lecture.find({ instructor: userId }).populate('course');
     return res.status(200).json(new apiResponse(200, lectures, "My lectures fetched successfully"));
 });
